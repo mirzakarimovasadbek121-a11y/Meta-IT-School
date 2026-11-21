@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>META IT SCHOOL — Zamonaviy IT Kasblari Akademiyasi</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%220%22%20100%22%20100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Fira Code"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        cyber: {
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            purple: '#a855f7',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            dark: '#090d16',
+                            card: '#111827',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+                            '50%': { opacity: '0.9', transform: 'scale(1.05)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#080c14] text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Ambient Background Glows -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-[130px]"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-purple-600/20 rounded-full blur-[140px]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- TOP ANNOUNCEMENT BAR (20% CHEGIRMA E'LONI) -->
+    <aside aria-label="E'lon" class="relative z-50 bg-gradient-to-r from-indigo-900 via-purple-900 to-cyan-900 border-b border-indigo-500/30 text-xs sm:text-sm py-2.5 px-4 shadow-lg shadow-indigo-950/40">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5 font-medium text-white/95">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-400 text-slate-900 font-bold text-xs animate-bounce">
+                    <i class="fa-solid fa-crown text-[11px]"></i>
+                </span>
+                <span class="font-bold text-amber-300">OYNING ENG FAOL O'QUVCHISI:</span>
+                <span>Har oy eng yuqori ball to'plagan iqtidorli o'quvchiga keyingi oy uchun <span class="text-emerald-400 font-bold underline decoration-wavy">20% CHEGIRMA</span> beriladi!</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="openActiveStudentModal()" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold text-xs transition border border-white/20 flex items-center gap-1.5 backdrop-blur-sm cursor-pointer">
+                    <span>G'olibni ko'rish</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
+                <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-white/60 hover:text-white text-xs px-1" title="Yopish">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#080c14]/85 border-b border-white/10 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-500 to-cyan-400 p-[2px] shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/50 transition">
+                    <div class="w-full h-full bg-[#0b101b] rounded-[10px] flex items-center justify-center text-white">
+                        <i class="fa-solid fa-code text-indigo-400 text-lg group-hover:scale-110 transition duration-300"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-black text-xl tracking-tight text-white">META</span>
+                        <span class="text-xs font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">IT SCHOOL</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 font-medium tracking-wide">ACADEMY OF FUTURE TECH</p>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+                <a href="#kurslar" class="hover:text-indigo-400 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-graduation-cap text-xs text-indigo-400/80"></i>
+                    <span>Kurslar</span>
+                </a>
+                <a href="#guruhlar" class="hover:text-cyan-400 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-users text-xs text-cyan-400/80"></i>
+                    <span>Guruhlar & Joylar</span>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-bold">Bo'sh</span>
+                </a>
+                <a href="#reyting" class="hover:text-amber-400 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-trophy text-xs text-amber-400/80"></i>
+                    <span>O'quvchilar Ballari</span>
+                </a>
+                <a href="#ustozlar" class="hover:text-purple-400 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-chalkboard-user text-xs text-purple-400/80"></i>
+                    <span>Ustozlar</span>
+                </a>
+                <a href="#tolovlar" class="hover:text-emerald-400 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-tags text-xs text-emerald-400/80"></i>
+                    <span>Narxlar & Chegirmalar</span>
+                </a>
+            </nav>
+
+            <!-- Actions / Auth Area -->
+            <div class="flex items-center gap-3">
+                <!-- Tezkor to'lov tugmasi -->
+                <button onclick="openPaymentModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 border border-white/10 text-xs font-semibold hover:border-emerald-500/50 hover:text-emerald-300 transition duration-200">
+                    <i class="fa-solid fa-credit-card text-emerald-400"></i>
+                    <span>To'lov qilish</span>
+                </button>
+
+                <!-- Auth Buttons Container (Dynamically toggles if logged in) -->
+                <div id="authContainer">
+                    <button onclick="openAuthModal('login')" class="relative inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:opacity-95 transition transform active:scale-95">
+                        <i class="fa-solid fa-user-plus text-xs"></i>
+                        <span>Ro'yxatdan o'tish</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white border border-white/10" aria-label="Menyu">
+                    <i class="fa-solid fa-bars text-lg" id="mobileMenuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden border-t border-white/10 bg-[#080c14]/95 backdrop-blur-2xl px-4 pt-4 pb-6 space-y-3">
+            <a href="#kurslar" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-sm font-medium text-slate-200">
+                <i class="fa-solid fa-graduation-cap text-indigo-400 mr-2"></i> Kurslar
+            </a>
+            <a href="#guruhlar" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-sm font-medium text-slate-200">
+                <i class="fa-solid fa-users text-cyan-400 mr-2"></i> Guruhlar & Bo'sh joylar
+            </a>
+            <a href="#reyting" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-sm font-medium text-slate-200">
+                <i class="fa-solid fa-trophy text-amber-400 mr-2"></i> O'quvchilar Ballari (Reyting)
+            </a>
+            <a href="#ustozlar" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-sm font-medium text-slate-200">
+                <i class="fa-solid fa-chalkboard-user text-purple-400 mr-2"></i> Ustozlar Darajasi
+            </a>
+            <a href="#tolovlar" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-sm font-medium text-slate-200">
+                <i class="fa-solid fa-tags text-emerald-400 mr-2"></i> Oylik To'lovlar & Chegirmalar
+            </a>
+            <div class="pt-3 border-t border-white/10 flex flex-col gap-2">
+                <button onclick="toggleMobileMenu(); openPaymentModal();" class="w-full py-2.5 rounded-xl bg-slate-800 border border-emerald-500/40 text-emerald-300 font-semibold text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-credit-card"></i> Oylik to'lov qilish
+                </button>
+                <button onclick="toggleMobileMenu(); openAuthModal('google');" class="w-full py-2.5 rounded-xl bg-white text-slate-900 font-semibold text-xs flex items-center justify-center gap-2 hover:bg-slate-100">
+                    <i class="fa-brands fa-google text-red-500"></i> Google bilan ro'yxatdan o'tish
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10">
+
+        <!-- HERO SECTION -->
+        <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold backdrop-blur-md">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span>2026-Yil yangi guruhlarga qabul ochiq!</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-white">
+                            Kelajak IT sohasini <br class="hidden sm:inline">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
+                                META IT School
+                            </span> <br>
+                            bilan quring!
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                            Noldan kuchli junior/middle dasturchigacha bo'lgan yo'l. Katta IT kompaniyalarda faoliyat yurituvchi Senior ustozlar, amaliy startap loyihalar va kafolatlangan karyera ko'magi.
+                        </p>
+
+                        <!-- Hero CTA buttons -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#kurslar" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 text-white font-bold text-sm shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] transition transform active:scale-95 flex items-center gap-2">
+                                <span>Kurslarni tanlash</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </a>
+                            <a href="#guruhlar" class="px-6 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-white/10 hover:border-cyan-500/50 font-semibold text-sm transition flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-cyan-400"></i>
+                                <span>Bo'sh joylarni tekshirish</span>
+                            </a>
+                            <button onclick="openGoogleQuickLogin()" class="px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/15 font-semibold text-sm transition flex items-center gap-2.5">
+                                <i class="fa-brands fa-google text-red-400"></i>
+                                <span>Tezkor Google kirish</span>
+                            </button>
+                        </div>
+
+                        <!-- Trust Stats Badges -->
+                        <div class="pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center sm:text-left">
+                            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="text-2xl font-black text-white">1,500+</div>
+                                <div class="text-xs text-slate-400">Muvaffaqiyatli bitiruvchilar</div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="text-2xl font-black text-emerald-400">92%</div>
+                                <div class="text-xs text-slate-400">Ishga joylashish ko'rsatkichi</div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="text-2xl font-black text-indigo-400">20+</div>
+                                <div class="text-xs text-slate-400">Senior mentorlar</div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="text-2xl font-black text-amber-400">4.9 / 5</div>
+                                <div class="text-xs text-slate-400">O'quvchilar bahosi</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Visual Card -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md p-1 rounded-3xl bg-gradient-to-b from-indigo-500 via-purple-500/40 to-cyan-500/20 shadow-2xl shadow-indigo-900/50">
+                            <div class="bg-[#0e1422] rounded-[22px] p-6 space-y-6 relative overflow-hidden">
+                                <!-- Top status -->
+                                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <span class="text-xs font-mono text-emerald-400 font-semibold">META_SYSTEM: ONLINE</span>
+                                    </div>
+                                    <span class="text-xs font-mono bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">v4.8 LMS</span>
+                                </div>
+
+                                <!-- Student Leader preview badge -->
+                                <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-purple-500/10 to-transparent border border-amber-500/30 flex items-center gap-4">
+                                    <div class="relative">
+                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80" alt="Oyning o'quvchisi" class="w-14 h-14 rounded-xl object-cover border-2 border-amber-400 shadow-md">
+                                        <span class="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-xs font-black shadow">
+                                            #1
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider">Oy Qahramoni</span>
+                                            <i class="fa-solid fa-sparkles text-amber-400 text-[11px]"></i>
+                                        </div>
+                                        <h4 class="font-bold text-sm text-white">Madina Karimova</h4>
+                                        <p class="text-xs text-slate-400">Full-Stack Dev • <span class="text-emerald-400 font-semibold font-mono">995 XP</span></p>
+                                    </div>
+                                </div>
+
+                                <!-- Live Seats Snapshot -->
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span class="text-slate-300 font-medium">Frontend React (#FE-102)</span>
+                                        <span class="text-rose-400 font-bold bg-rose-500/10 px-2 py-0.5 rounded">Faqat 2 ta joy!</span>
+                                    </div>
+                                    <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-indigo-500 to-rose-500 rounded-full" style="width: 86%;"></div>
+                                    </div>
+                                    <div class="flex justify-between text-[11px] text-slate-400">
+                                        <span>Band: 12 / 14 o'quvchi</span>
+                                        <span class="text-emerald-400 font-medium">Boshlanishi: 25-Noyabr</span>
+                                    </div>
+                                </div>
+
+                                <!-- Fast Action inside Hero -->
+                                <button onclick="openActiveStudentModal()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-gift"></i>
+                                    <span>20% Chegirma Qoidasini O'qish</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPECIAL ANNOUNCEMENT SPOTLIGHT: OYNING ENG FAOL O'QUVCHISI VA 20% CHEGIRMA -->
+        <section id="faol-oquvchi" class="py-12 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative rounded-3xl bg-gradient-to-br from-indigo-950/80 via-[#0e1628] to-purple-950/70 border-2 border-indigo-500/40 p-6 sm:p-10 shadow-2xl shadow-indigo-950/70 overflow-hidden">
+                    <!-- Background decor elements -->
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute top-0 right-0 p-8 opacity-10 text-9xl font-black text-amber-400 pointer-events-none select-none">
+                        20%
+                    </div>
+
+                    <div class="grid lg:grid-cols-12 gap-8 items-center relative z-10">
+                        <div class="lg:col-span-8 space-y-4">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-star text-amber-400"></i> Maxsus Rag'batlantirish Dasturi
+                            </div>
+
+                            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight">
+                                Oyning eng faol o'quvchisiga <br class="hidden sm:inline">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400">
+                                    20% OYLIK TO'LOV CHEGIRMASI!
+                                </span>
+                            </h2>
+
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+                                META IT School har oy talabalarning o'zlashtirish ballari, uyga vazifalari, dars qatnashuvi va amaliy startap kodlash faolligini avtomatlashtirilgan LMS orqali baholaydi. 
+                                Oy yakunida 1-o'rinni egallagan g'olib talabaga <b>keyingi oy to'lovi uchun 20% maxsus chegirma sertifikati</b> taqdim etiladi!
+                            </p>
+
+                            <!-- Criteria items -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                                <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-2.5">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 text-xs font-bold">1</div>
+                                    <div class="text-xs">
+                                        <div class="font-bold text-white">100% Davomat</div>
+                                        <div class="text-slate-400">Darslarni qoldirmaslik</div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-2.5">
+                                    <div class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 text-xs font-bold">2</div>
+                                    <div class="text-xs">
+                                        <div class="font-bold text-white">Top Vazifalar</div>
+                                        <div class="text-slate-400">Barcha topshiriqlar 95+</div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-2.5">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 text-xs font-bold">3</div>
+                                    <div class="text-xs">
+                                        <div class="font-bold text-white">Hackathon & LMS</div>
+                                        <div class="text-slate-400">Faol kod yozish va amaliyot</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current Month Winner Display Box -->
+                        <div class="lg:col-span-4">
+                            <div class="p-6 rounded-2xl bg-[#090e1a]/90 border border-amber-500/40 text-center space-y-4 shadow-xl">
+                                <div class="relative inline-block">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=220&q=80" alt="G'olib" class="w-20 h-20 rounded-2xl object-cover mx-auto border-2 border-amber-400 shadow-lg">
+                                    <span class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black text-[10px] uppercase shadow">
+                                        G'olib 🔥
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <h3 class="font-black text-lg text-white">Madina Karimova</h3>
+                                    <p class="text-xs text-indigo-400 font-medium">Full-Stack Bootcamp (Guruhi: #FS-301)</p>
+                                    <div class="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-mono text-xs font-bold border border-amber-500/30">
+                                        <i class="fa-solid fa-fire text-amber-400"></i> 995 Ball (Top 1)
+                                    </div>
+                                </div>
+
+                                <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300">
+                                    <div class="font-bold">20% Chegirma qo'llandi:</div>
+                                    <div class="font-mono text-sm font-black text-white">1,500,000 so'm ➔ 1,200,000 so'm</div>
+                                </div>
+
+                                <button onclick="triggerConfettiReward()" class="w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition flex items-center justify-center gap-2 shadow-md">
+                                    <i class="fa-solid fa-gift"></i>
+                                    <span>G'olibni tabriklash 🎉</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KURSLAR BO'LIMI (AVAILABLE COURSES) -->
+        <section id="kurslar" class="py-16 sm:py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-indigo-400 text-xs font-extrabold uppercase tracking-widest mb-2">
+                            <i class="fa-solid fa-layer-group"></i> O'quv Dasturlari
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                            Mavjud Zamonaviy IT Kurslarimiz
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-1 max-w-xl">
+                            Har bir kurs amaliy loyihalar va portfolio asosida tuzilgan. Oylik to'lovlar hamda chegirmalar bilan qulay sharoitda o'qing.
+                        </p>
+                    </div>
+
+                    <!-- Category Tabs / Filter -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0" id="courseFilters">
+                        <button onclick="filterCourses('all')" class="course-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition border border-indigo-500/40 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 whitespace-nowrap">
+                            Barchasi (6)
+                        </button>
+                        <button onclick="filterCourses('web')" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-800/80 text-slate-300 hover:text-white hover:border-indigo-500/30 whitespace-nowrap">
+                            Web & Full-Stack
+                        </button>
+                        <button onclick="filterCourses('backend')" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-800/80 text-slate-300 hover:text-white hover:border-indigo-500/30 whitespace-nowrap">
+                            Python & Backend
+                        </button>
+                        <button onclick="filterCourses('mobile-design')" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition border border-white/10 bg-slate-800/80 text-slate-300 hover:text-white hover:border-indigo-500/30 whitespace-nowrap">
+                            Mobile & UI/UX
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Courses Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="coursesGrid">
+                    <!-- Dynamic or Static Course Cards will be rendered here with rich details -->
+                </div>
+            </div>
+        </section>
+
+        <!-- GURUHLAR VA BO'SH JOYLAR BO'LIMI (ACTIVE BATCHES & VACANT SEATS) -->
+        <section id="guruhlar" class="py-16 sm:py-24 bg-[#0a0f1d] border-y border-white/5 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-cyan-400 text-xs font-extrabold uppercase tracking-widest mb-2">
+                            <i class="fa-solid fa-users"></i> Jonli Qabul Holati
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                            Guruhlar Jadvali va Bo'sh Joylar
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-1 max-w-xl">
+                            Har bir guruhda sifatni saqlash maqsadida maksimal 14-16 ta o'quvchi o'qitiladi. Bo'sh joylar sonini kuzatib, o'z vaqtida joyingizni band qiling!
+                        </p>
+                    </div>
+
+                    <!-- Search and Filter in Groups -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                            <input type="text" id="groupSearchInput" onkeyup="filterGroups()" placeholder="Guruh yoki kursni qidirish..." class="w-60 sm:w-72 pl-9 pr-4 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500 transition">
+                        </div>
+                        <select id="groupTimeFilter" onchange="filterGroups()" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500 transition">
+                            <option value="all">Barcha vaqtlar</option>
+                            <option value="morning">Ertalabki (09:00 - 12:00)</option>
+                            <option value="afternoon">Tushki (14:30 - 17:30)</option>
+                            <option value="evening">Kechki (18:30 - 21:00)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Groups Table / Grid Container -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="groupsContainer">
+                    <!-- Groups injected by JS with seat progress bar, vacant count, mentor, schedule -->
+                </div>
+
+                <!-- Fast Notice Below Groups -->
+                <div class="mt-8 p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-circle-info text-cyan-400 text-lg"></i>
+                        <span class="text-xs sm:text-sm text-cyan-200">
+                            Qizil belgi bilan ko'rsatilgan guruhlarda <b>3 tadan kam bo'sh joy</b> qolgan. Joyni oldindan to'lov yoki ro'yxatdan o'tish orqali band qiling.
+                        </span>
+                    </div>
+                    <button onclick="openEnrollModal('general')" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs whitespace-nowrap transition">
+                        Joyni darhol band qilish
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- O'QUVCHILARNING BALLARI VA REYTINGI (STUDENT LEADERBOARD & XP) -->
+        <section id="reyting" class="py-16 sm:py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-amber-400 text-xs font-extrabold uppercase tracking-widest mb-2">
+                            <i class="fa-solid fa-trophy"></i> Jonli Reyting
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                            O'quvchilar Ballari va Natijalari
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-1 max-w-xl">
+                            Har bir topshirilgan kod, darsdagi faollik va mini-loyihalar uchun XP ballar beriladi. Top-1 o'quvchi 20% chegirma yutadi!
+                        </p>
+                    </div>
+
+                    <!-- Filter by course for leaderboard -->
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                            <input type="text" id="leaderboardSearch" onkeyup="filterLeaderboard()" placeholder="O'quvchi ismini izlash..." class="pl-9 pr-4 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-400 transition w-56 sm:w-64">
+                        </div>
+                        <button onclick="loadLeaderboard()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 border border-white/10 text-xs" title="Yangilash">
+                            <i class="fa-solid fa-rotate"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Top 3 Podium Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 items-end" id="podiumContainer">
+                    <!-- Podium generated via JS -->
+                </div>
+
+                <!-- Leaderboard Table -->
+                <div class="rounded-2xl border border-white/10 bg-[#0e1422] overflow-hidden shadow-xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-300">
+                            <thead class="bg-slate-900/80 text-[11px] uppercase tracking-wider text-slate-400 border-b border-white/10 font-bold font-mono">
+                                <tr>
+                                    <th class="py-4 px-6">O'rin</th>
+                                    <th class="py-4 px-6">O'quvchi Ismi</th>
+                                    <th class="py-4 px-6">Yo'nalish / Guruhi</th>
+                                    <th class="py-4 px-6">Vazifalar (LMS)</th>
+                                    <th class="py-4 px-6 text-right">Jami Ball (XP)</th>
+                                    <th class="py-4 px-6 text-center">Rag'bat / Chegirma</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5 font-medium" id="leaderboardTableBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- How points work explanation -->
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs text-slate-400">
+                    <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                        <i class="fa-solid fa-check-double text-emerald-400 text-lg"></i>
+                        <div><b class="text-white">Uyga vazifa:</b> +50 XP gacha</div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                        <i class="fa-solid fa-laptop-code text-indigo-400 text-lg"></i>
+                        <div><b class="text-white">Amaliy Loyiha:</b> +200 XP gacha</div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                        <i class="fa-solid fa-calendar-check text-cyan-400 text-lg"></i>
+                        <div><b class="text-white">To'liq Davomat:</b> +100 XP / oy</div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                        <i class="fa-solid fa-gift text-amber-400 text-lg"></i>
+                        <div><b class="text-amber-300">Top-1 Talaba:</b> 20% Chegirma!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- USTOZLARNING DARAJASI VA TAJRIBASI (MENTORS SECTION) -->
+        <section id="ustozlar" class="py-16 sm:py-24 bg-[#0a0f1d] border-t border-white/5 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="inline-flex items-center gap-2 text-purple-400 text-xs font-extrabold uppercase tracking-widest mb-2">
+                        <i class="fa-solid fa-chalkboard-user"></i> Tajribali Mutaxassislar
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                        Ustozlarimizning Darajasi va Tajribasi
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-2">
+                        Bizda faqat nazariyachilar emas, balki xalqaro va mahalliy yirik IT korxonalarda (EPAM, Uzum, Super Dispatch, TBC) real loyihalarda ishlovchi Senior va Lead darajadagi mutaxassislar dars beradi.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="mentorsContainer">
+                    <!-- Mentors rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- OYLIK TO'LOVLAR VA CHEGIRMALAR BO'LIMI (PRICING & DISCOUNT CALCULATOR) -->
+        <section id="tolovlar" class="py-16 sm:py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="inline-flex items-center gap-2 text-emerald-400 text-xs font-extrabold uppercase tracking-widest mb-2">
+                        <i class="fa-solid fa-receipt"></i> Shaffof Moliyaviy Tizim
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                        Oylik To'lovlar va Maxsus Chegirmalar
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-2">
+                        Hech qanday yashirin to'lovlarsiz. Doimiy chegirmalar, faol o'quvchilar uchun 20% keshbek va bo'lib to'lash imkoniyatlari mavjud.
+                    </p>
+                </div>
+
+                <!-- Pricing Cards Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-16">
+                    <!-- Standard Plan -->
+                    <div class="rounded-3xl bg-[#0e1422] border border-white/10 p-8 flex flex-col justify-between hover:border-indigo-500/40 transition duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Standart Oylik</span>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-white/10">Boshlang'ich</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-white">Oylik To'lov</h3>
+                            <p class="text-xs text-slate-400 mt-1">Har oy qadamma-qadam to'lab o'qish uchun eng qulay tarif</p>
+
+                            <div class="my-6">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-4xl font-black text-white" id="planPriceStandard">1,200,000</span>
+                                    <span class="text-sm font-semibold text-slate-400">so'm / oy</span>
+                                </div>
+                                <span class="text-xs text-emerald-400 font-medium">Barcha dars materiallari bepul taqdim etiladi</span>
+                            </div>
+
+                            <ul class="space-y-3.5 text-xs text-slate-300 border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Haftada 3 kun, 2 soatdan jonli amaliy darslar</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>LMS tizimiga 24/7 to'liq kirish</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Mentorlar tomonidan har bir kodni tekshirish</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Oy talabasi bo'lib <b>20% chegirma</b> yutish imkoni</span>
+                                </li>
+                                <li class="flex items-center gap-3 text-slate-500">
+                                    <i class="fa-solid fa-xmark"></i>
+                                    <span>Individual 1-ga-1 koverking sessiyalari</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-8 mt-6 border-t border-white/10">
+                            <button onclick="startPaymentForPlan('Standart Oylik', 1200000)" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition border border-white/10">
+                                Tanlash & To'lov qilish
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRO PLAN (MOST POPULAR) -->
+                    <div class="rounded-3xl bg-gradient-to-b from-[#131b2e] to-[#0d1424] border-2 border-indigo-500 p-8 flex flex-col justify-between shadow-2xl shadow-indigo-950/70 relative">
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black text-[11px] uppercase tracking-wider shadow">
+                            Eng Ko'p Tanlangan
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">Bootcamp Karyera</span>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">15% Tejamkor</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-white">3 Oylik Paket</h3>
+                            <p class="text-xs text-slate-400 mt-1">3 oyni birdan to'laganda avtomatik 15% chegirma beriladi</p>
+
+                            <div class="my-6">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-4xl font-black text-indigo-300">1,020,000</span>
+                                    <span class="text-sm font-semibold text-slate-400">so'm / oy</span>
+                                </div>
+                                <div class="text-xs text-slate-400">
+                                    <span class="line-through">3,600,000 so'm</span> o'rniga <b class="text-emerald-400 font-bold">3,060,000 so'm</b>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3.5 text-xs text-slate-200 border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Haftada 3 kun ma'ruza + 2 kun amaliy laboratoriya</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>META Co-working zonasida istalgan payt ishlash</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Katta real startap portfolio va Mock Interview</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Rezyume va LinkedIn profilini professional tayyorlash</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Rasmiy litsenziyalangan diplom & sertifikat</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-8 mt-6 border-t border-white/10">
+                            <button onclick="startPaymentForPlan('3 Oylik Paket (15% Chegirma)', 3060000)" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs transition shadow-lg shadow-indigo-600/30">
+                                Ushbu Tarifni Tanlash
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FULL COURSE (20% DISCOUNT) -->
+                    <div class="rounded-3xl bg-[#0e1422] border border-white/10 p-8 flex flex-col justify-between hover:border-emerald-500/40 transition duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">To'liq Kurs Paketi</span>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">20% Chegirma!</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-white">To'liq To'lov (6 Oy)</h3>
+                            <p class="text-xs text-slate-400 mt-1">Butun kurs uchun to'liq to'lov qilganda maksimal 20% tejab qoling</p>
+
+                            <div class="my-6">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-4xl font-black text-emerald-400">960,000</span>
+                                    <span class="text-sm font-semibold text-slate-400">so'm / oy hisobida</span>
+                                </div>
+                                <div class="text-xs text-slate-400">
+                                    <span class="line-through">7,200,000 so'm</span> o'rniga <b class="text-emerald-400 font-bold">5,760,000 so'm</b>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3.5 text-xs text-slate-300 border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>To'liq 6 oylik barcha modullar va imtihonlar</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Kafolatlangan IT kompaniyaga stajirovka</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Shaxsiy Senior mentor nazorati (1-ga-1)</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Meta IT School maxsus merch to'plami (Huddi, ryukzak, stikerlar)</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-check text-emerald-400"></i>
+                                    <span>Xalqaro sertifikat olishda to'liq ko'mak</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-8 mt-6 border-t border-white/10">
+                            <button onclick="startPaymentForPlan('To\'liq Kurs Paketi (20% Chegirma)', 5760000)" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold text-xs transition border border-emerald-500/30">
+                                20% Chegirma Bilan To'lash
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE DISCOUNT & PROMO-CODE CALCULATOR -->
+                <div class="rounded-3xl bg-[#0e1628] border border-indigo-500/30 p-6 sm:p-10 shadow-xl">
+                    <div class="grid lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-6 space-y-4">
+                            <span class="text-xs font-mono uppercase text-amber-400 font-bold">Interaktiv Kalkulyator</span>
+                            <h3 class="text-2xl font-black text-white">Oylik To'lov va Chegirmangizni Hisoblang</h3>
+                            <p class="text-xs sm:text-sm text-slate-300">
+                                Kursni va guruhni tanlang, maxsus vaucher yoki <b>oyning eng faol o'quvchisi</b> promo-kodini kiriting va yakuniy narxni ko'ring!
+                            </p>
+                            
+                            <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 flex items-center gap-2.5">
+                                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                                <span>Faol talaba promo kodi: <b class="font-mono underline cursor-pointer" onclick="fillPromoCode('META20ACTIVE')">META20ACTIVE</b> (20% chegirma beradi)</span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-6 bg-slate-900/90 p-6 rounded-2xl border border-white/10 space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Kursni tanlang:</label>
+                                    <select id="calcCourseSelect" onchange="calculatePrice()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500">
+                                        <option value="1200000">Frontend Dasturlash (1,200,000 so'm/oy)</option>
+                                        <option value="1300000">Backend Python & Django (1,300,000 so'm/oy)</option>
+                                        <option value="1500000">Full-Stack JavaScript (1,500,000 so'm/oy)</option>
+                                        <option value="1350000">Flutter Mobile Dasturlash (1,350,000 so'm/oy)</option>
+                                        <option value="1100000">UI/UX Dizayn & Figma (1,100,000 so'm/oy)</option>
+                                        <option value="1400000">Kiberxavfsizlik Asoslari (1,400,000 so'm/oy)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">To'lov muddati:</label>
+                                    <select id="calcMonthsSelect" onchange="calculatePrice()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500">
+                                        <option value="1">1 Oy (Oddiy to'lov)</option>
+                                        <option value="3">3 Oy (10% Avto-chegirma)</option>
+                                        <option value="6">6 Oy (15% Avto-chegirma)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Promo-kod (Chegirma kodi):</label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="calcPromoInput" placeholder="Masalan: META20ACTIVE" class="flex-1 py-2.5 px-3.5 rounded-xl bg-slate-800 border border-white/10 text-xs text-white uppercase font-mono focus:outline-none focus:border-indigo-500">
+                                    <button onclick="applyPromoCode()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition">
+                                        Qo'llash
+                                    </button>
+                                </div>
+                                <p id="promoStatusMessage" class="text-[11px] mt-1.5 hidden"></p>
+                            </div>
+
+                            <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-slate-400">Jami to'lov summasi:</span>
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="text-2xl sm:text-3xl font-black text-emerald-400" id="calcFinalPrice">1,200,000</span>
+                                        <span class="text-xs text-slate-300">so'm</span>
+                                        <span id="calcOldPriceContainer" class="hidden text-xs text-slate-500 line-through"></span>
+                                    </div>
+                                </div>
+                                <button onclick="checkoutCalculatedPrice()" class="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20">
+                                    To'lovga o'tish
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SAVOLLAR VA BOG'LANISH (FAQ & CONTACT) -->
+        <section class="py-16 bg-[#0a0f1d] border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-12 gap-12">
+                    <!-- Left Contact -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="inline-flex items-center gap-2 text-indigo-400 text-xs font-extrabold uppercase tracking-widest">
+                            <i class="fa-solid fa-headset"></i> Savollaringiz bormi?
+                        </div>
+                        <h2 class="text-3xl font-black text-white">Biz bilan bog'laning yoki tashrif buyuring</h2>
+                        <p class="text-sm text-slate-400">
+                            Administratorlarimiz sizga mos kurs, to'lov rejasi va bo'sh joylar bo'yicha bepul maslahat berishga tayyor.
+                        </p>
+
+                        <div class="space-y-4 text-xs sm:text-sm text-slate-300">
+                            <div class="flex items-center gap-3.5 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] text-slate-400">Bosh ofis manzili:</div>
+                                    <div class="font-semibold text-white">Toshkent sh., Chilonzor tumani, Bunyodkor shox ko'chasi, 42-A</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3.5 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] text-slate-400">Telefon raqamlar:</div>
+                                    <div class="font-semibold text-white">+998 (71) 200-05-50 / +998 (90) 123-45-67</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3.5 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div class="w-10 h-10 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                                    <i class="fa-brands fa-telegram"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] text-slate-400">Telegram rasmiy bot:</div>
+                                    <div class="font-semibold text-cyan-400">@metait_school_bot</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right FAQ Accordion -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <h3 class="text-xl font-bold text-white mb-6">Ko'p Beriladigan Savollar</h3>
+
+                        <div class="faq-item rounded-2xl bg-slate-900/60 border border-white/10 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 sm:p-5 text-left font-bold text-sm text-white flex justify-between items-center">
+                                <span>20% chegirma qanday beriladi va kimlar oladi?</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-indigo-400 transition-transform duration-200"></i>
+                            </button>
+                            <div class="faq-answer px-5 pb-5 text-xs sm:text-sm text-slate-400 hidden">
+                                Har oy oxirida maktabimizning avtomatlashgan LMS reyting tizimida eng yuqori ball (davomat, uyga vazifalar, testlar va kod tekshiruvi natijasi) to'plagan 1-o'rindagi iqtidorli o'quvchiga keyingi oy uchun 20% to'lov chegirmasi sertifikati beriladi.
+                            </div>
+                        </div>
+
+                        <div class="faq-item rounded-2xl bg-slate-900/60 border border-white/10 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 sm:p-5 text-left font-bold text-sm text-white flex justify-between items-center">
+                                <span>Guruh to'lib qolsa nima bo'ladi?</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-indigo-400 transition-transform duration-200"></i>
+                            </button>
+                            <div class="faq-answer px-5 pb-5 text-xs sm:text-sm text-slate-400 hidden">
+                                Har bir guruhimiz 14 kishiga mo'ljallangan. Guruh to'lganida saytda "To'ldi" belgisi chiqadi va siz avtomatik ravishda keyingi ochiq oqim (navbat) ro'yxatiga yozilishingiz mumkin.
+                            </div>
+                        </div>
+
+                        <div class="faq-item rounded-2xl bg-slate-900/60 border border-white/10 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 sm:p-5 text-left font-bold text-sm text-white flex justify-between items-center">
+                                <span>To'lov turlari qaysilar va kvitansiya beriladimi?</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-indigo-400 transition-transform duration-200"></i>
+                            </button>
+                            <div class="faq-answer px-5 pb-5 text-xs sm:text-sm text-slate-400 hidden">
+                                To'lovlarni Payme, Click, Uzum Bank yoki istalgan bank kartasi (Humo/Uzcard/Visa) orqali onlayn amalga oshirishingiz mumkin. To'lov amalga oshishi bilan darhol rasmiy elektron kvitansiya generatsiya qilinadi va yuklab olish imkoni beriladi.
+                            </div>
+                        </div>
+
+                        <div class="faq-item rounded-2xl bg-slate-900/60 border border-white/10 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 sm:p-5 text-left font-bold text-sm text-white flex justify-between items-center">
+                                <span>Google akkaunt bilan kirganda qanday imkoniyatlar bor?</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-indigo-400 transition-transform duration-200"></i>
+                            </button>
+                            <div class="faq-answer px-5 pb-5 text-xs sm:text-sm text-slate-400 hidden">
+                                Google akkaunt orqali 1 bosishda shaxsiy kabinetingizga kirasiz, profilingiz yaratiladi, darhol 50 xush kelibsiz balli beriladi va siz o'z guruhlaringiz, to'lov tarixingiz hamda reytingdagi o'rningizni boshqarishingiz mumkin bo'ladi.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#05080e] border-t border-white/10 py-12 text-slate-400 text-xs relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 p-[2px]">
+                        <div class="w-full h-full bg-[#080c14] rounded-[10px] flex items-center justify-center text-white">
+                            <i class="fa-solid fa-code text-indigo-400"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-black text-lg text-white">META IT SCHOOL</span>
+                        <p class="text-[11px] text-slate-500">Kelajak dasturchilari akademiyasi</p>
+                    </div>
+                </div>
+
+                <!-- Socials -->
+                <div class="flex items-center gap-4 text-base">
+                    <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-indigo-600 hover:text-white border border-white/10 flex items-center justify-center transition">
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-rose-600 hover:text-white border border-white/10 flex items-center justify-center transition">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-red-600 hover:text-white border border-white/10 flex items-center justify-center transition">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-blue-600 hover:text-white border border-white/10 flex items-center justify-center transition">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 text-[11px]">
+                <p>&copy; 2026 META IT SCHOOL. Barcha huquqlar himoyalangan.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-slate-300">Maxfiylik siyosati</a>
+                    <a href="#" class="hover:text-slate-300">Ommaviy oferta</a>
+                    <a href="#" class="hover:text-slate-300">Litsenziya № 402910</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- 1. AUTH / RO'YXATDAN O'TISH & GOOGLE SIGN-IN MODAL -->
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity">
+        <div class="relative w-full max-w-md rounded-3xl bg-[#0e1424] border border-white/15 p-6 sm:p-8 shadow-2xl shadow-indigo-950/80">
+            <!-- Close Button -->
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-xl bg-white/5">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 mx-auto flex items-center justify-center text-xl mb-3">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <h3 class="text-xl font-black text-white" id="authModalTitle">META Tizimiga Kirish</h3>
+                <p class="text-xs text-slate-400 mt-1" id="authModalSubtitle">Google akkaunt yoki telefon raqamingiz orqali ro'yxatdan o'ting</p>
+            </div>
+
+            <!-- ONE-CLICK GOOGLE SIGN IN BUTTON -->
+            <button onclick="simulateGoogleSignIn()" class="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm flex items-center justify-center gap-3 transition shadow-md active:scale-95 mb-5">
+                <svg class="w-4 h-4" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Google orqali 1 bosishda kirish</span>
+            </button>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-3 my-4">
+                <div class="h-[1px] flex-1 bg-white/10"></div>
+                <span class="text-[11px] text-slate-500 uppercase tracking-widest font-mono">yoki an'anaviy</span>
+                <div class="h-[1px] flex-1 bg-white/10"></div>
+            </div>
+
+            <!-- Standard Signup/Login Form -->
+            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div id="authNameField">
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">To'liq ism-familiyangiz:</label>
+                    <input type="text" id="authName" placeholder="Masalan: Sardor Rustamov" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Telefon raqamingiz:</label>
+                    <input type="tel" id="authPhone" required placeholder="+998 (90) 123-45-67" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500">
+                </div>
+
+                <div id="authCourseSelectField">
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Qiziqqan IT yo'nalishingiz:</label>
+                    <select id="authCourse" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-indigo-500">
+                        <option value="Frontend Development">Frontend Development (React, JS)</option>
+                        <option value="Backend Python & Django">Backend Python & Django</option>
+                        <option value="Full-Stack JavaScript">Full-Stack JavaScript (MERN / Next)</option>
+                        <option value="Flutter Mobile">Flutter Mobile App Development</option>
+                        <option value="UI/UX Dizayn">UI/UX Dizayn (Figma)</option>
+                        <option value="Kiberxavfsizlik">Kiberxavfsizlik (Cyber Security)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-indigo-600/30">
+                    Ro'yxatdan o'tish (+50 XP ball)
+                </button>
+            </form>
+
+            <p class="text-[11px] text-center text-slate-500 mt-4">
+                Davom etish orqali siz qoidalar va shartlarga rozilik bildirasiz.
+            </p>
+        </div>
+    </div>
+
+    <!-- 2. GOOGLE ACCOUNT SELECTION SIMULATION POPUP -->
+    <div id="googleSelectorModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm hidden">
+        <div class="relative w-full max-w-sm rounded-2xl bg-white text-slate-800 p-6 shadow-2xl animate-scaleIn">
+            <button onclick="closeGoogleSelectorModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-2 mb-4">
+                <svg class="w-5 h-5" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span class="text-xs font-semibold text-slate-500">Google bilan kiring</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900 mb-1">Hisobni tanlang</h4>
+            <p class="text-xs text-slate-500 mb-4">META IT School ilovasiga kirish uchun</p>
+
+            <!-- Pre-populated Google accounts list -->
+            <div class="space-y-2 border-y border-slate-200 py-3">
+                <button onclick="loginWithGoogleAccount('Sardorbek Alimov', 'sardorbek.coder@gmail.com', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80')" class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-100 transition text-left">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="w-9 h-9 rounded-full object-cover">
+                    <div>
+                        <div class="text-xs font-bold text-slate-900">Sardorbek Alimov</div>
+                        <div class="text-[11px] text-slate-500">sardorbek.coder@gmail.com</div>
+                    </div>
+                </button>
+
+                <button onclick="loginWithGoogleAccount('Zilola Yusupova', 'zilola.tech@gmail.com', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80')" class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-100 transition text-left">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="w-9 h-9 rounded-full object-cover">
+                    <div>
+                        <div class="text-xs font-bold text-slate-900">Zilola Yusupova</div>
+                        <div class="text-[11px] text-slate-500">zilola.tech@gmail.com</div>
+                    </div>
+                </button>
+
+                <button onclick="promptCustomGoogleAccount()" class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-100 transition text-left text-xs font-semibold text-indigo-600">
+                    <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600">
+                        <i class="fa-solid fa-user-plus text-xs"></i>
+                    </div>
+                    <span>Boshqa Google hisob bilan kirish</span>
+                </button>
+            </div>
+
+            <div class="pt-3 text-[11px] text-slate-400">
+                META IT School sizning ismingiz va elektron pochtangizni qabul qiladi.
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. TO'LOV QILISH MODAL (INTERACTIVE PAYMENT SYSTEM) -->
+    <div id="paymentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden overflow-y-auto">
+        <div class="relative w-full max-w-lg rounded-3xl bg-[#0e1424] border border-white/15 p-6 sm:p-8 shadow-2xl my-8">
+            <button onclick="closePaymentModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-xl bg-white/5">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <!-- Payment Steps / Header -->
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-white">META IT Oylik To'lov</h3>
+                    <p class="text-xs text-slate-400">Xavfsiz va tezkor onlayn to'lov tizimi</p>
+                </div>
+            </div>
+
+            <form id="paymentForm" onsubmit="handlePaymentSubmit(event)" class="space-y-4">
+                <!-- Select Course & Batch -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Kursni tanlang:</label>
+                        <select id="payCourse" onchange="syncPaymentAmount()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            <option value="Frontend Development" data-price="1200000">Frontend React (1.2 mln)</option>
+                            <option value="Backend Python & Django" data-price="1300000">Backend Python (1.3 mln)</option>
+                            <option value="Full-Stack JavaScript" data-price="1500000">Full-Stack JS (1.5 mln)</option>
+                            <option value="Flutter Mobile" data-price="1350000">Flutter Mobile (1.35 mln)</option>
+                            <option value="UI/UX Dizayn" data-price="1100000">UI/UX Dizayn (1.1 mln)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Guruhni tanlang:</label>
+                        <select id="payGroup" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            <option value="#FE-102">#FE-102 (Dush-Chor-Juma 18:30)</option>
+                            <option value="#FS-301">#FS-301 (Sesh-Pay-Shan 14:30)</option>
+                            <option value="#PY-204">#PY-204 (Dush-Chor-Juma 09:00)</option>
+                            <option value="#FL-105">#FL-105 (Sesh-Pay-Shan 18:30)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Student info -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">O'quvchi F.I.SH:</label>
+                        <input type="text" id="payStudentName" required placeholder="Ism Familiya" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Telefon raqam:</label>
+                        <input type="tel" id="payPhone" required placeholder="+998 90 123 45 67" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-white/10 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <!-- Payment Methods Choice -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-2">To'lov usulini tanlang:</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <label class="pay-method-card flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-800 border-2 border-emerald-500 cursor-pointer text-center">
+                            <input type="radio" name="payMethod" value="Payme" checked class="hidden" onchange="selectPaymentMethod(this)">
+                            <span class="text-xs font-black text-cyan-400">Payme</span>
+                            <span class="text-[9px] text-slate-400">0% komissiya</span>
+                        </label>
+                        <label class="pay-method-card flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-800 border-2 border-transparent cursor-pointer text-center">
+                            <input type="radio" name="payMethod" value="Click" class="hidden" onchange="selectPaymentMethod(this)">
+                            <span class="text-xs font-black text-blue-400">Click</span>
+                            <span class="text-[9px] text-slate-400">0% komissiya</span>
+                        </label>
+                        <label class="pay-method-card flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-800 border-2 border-transparent cursor-pointer text-center">
+                            <input type="radio" name="payMethod" value="Uzum" class="hidden" onchange="selectPaymentMethod(this)">
+                            <span class="text-xs font-black text-purple-400">Uzum Bank</span>
+                            <span class="text-[9px] text-slate-400">Keshbek bilan</span>
+                        </label>
+                        <label class="pay-method-card flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-800 border-2 border-transparent cursor-pointer text-center">
+                            <input type="radio" name="payMethod" value="Karta" class="hidden" onchange="selectPaymentMethod(this)">
+                            <span class="text-xs font-black text-amber-400">Uzcard / Humo</span>
+                            <span class="text-[9px] text-slate-400">To'g'ridan-to'g'ri</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Promo code inside payment -->
+                <div class="p-3.5 rounded-xl bg-slate-800/80 border border-white/10 space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-300 font-medium">Faol talaba chegirma kodi bormi?</span>
+                        <span class="text-[10px] text-amber-400 font-mono">META20ACTIVE (20%)</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" id="payPromoInput" placeholder="Chegirma promo-kodi" class="flex-1 py-2 px-3 rounded-lg bg-slate-900 border border-white/10 text-xs text-white uppercase font-mono">
+                        <button type="button" onclick="applyPaymentPromo()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-xs font-bold text-white transition">
+                            Tekshirish
+                        </button>
+                    </div>
+                    <p id="payPromoAlert" class="text-[11px] hidden"></p>
+                </div>
+
+                <!-- Summary & Total -->
+                <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between">
+                    <div>
+                        <div class="text-[11px] text-slate-400">Yakuniy to'lanadigan summa:</div>
+                        <div class="text-2xl font-black text-white" id="payTotalAmount">1,200,000 so'm</div>
+                        <div id="payDiscountLabel" class="text-[10px] text-emerald-400 hidden">20% Chegirma muvaffaqiyatli qo'llandi!</div>
+                    </div>
+                    <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/30 flex items-center gap-2">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span>To'lash</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. KVITANSIYA (RECEIPT) MODAL -->
+    <div id="receiptModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
+        <div class="relative w-full max-w-md rounded-3xl bg-[#0c121e] border border-white/15 p-6 sm:p-8 text-white shadow-2xl">
+            <!-- Header Check -->
+            <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 text-emerald-400 mx-auto flex items-center justify-center text-2xl mb-4 animate-bounce">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-black text-center text-white">To'lov Muvaffaqiyatli O'tdi!</h3>
+            <p class="text-xs text-center text-slate-400 mb-6">Elektron chek raqami: <span id="receiptNumber" class="font-mono text-cyan-400">#META-99210</span></p>
+
+            <!-- Receipt Card -->
+            <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4 space-y-3 text-xs">
+                <div class="flex justify-between border-b border-white/5 pb-2">
+                    <span class="text-slate-400">O'quvchi:</span>
+                    <span class="font-bold text-white" id="receiptStudent">--</span>
+                </div>
+                <div class="flex justify-between border-b border-white/5 pb-2">
+                    <span class="text-slate-400">Kurs & Guruhi:</span>
+                    <span class="font-bold text-indigo-300" id="receiptCourse">--</span>
+                </div>
+                <div class="flex justify-between border-b border-white/5 pb-2">
+                    <span class="text-slate-400">To'lov tizimi:</span>
+                    <span class="font-semibold text-white" id="receiptMethod">Payme</span>
+                </div>
+                <div class="flex justify-between border-b border-white/5 pb-2">
+                    <span class="text-slate-400">Chegirma qo'llandi:</span>
+                    <span class="font-bold text-emerald-400" id="receiptDiscount">0%</span>
+                </div>
+                <div class="flex justify-between pt-1 text-sm font-black">
+                    <span class="text-slate-200">To'langan summa:</span>
+                    <span class="text-emerald-400" id="receiptAmount">-- so'm</span>
+                </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <button onclick="window.print()" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition border border-white/10 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Chop etish</span>
+                </button>
+                <button onclick="closeReceiptModal()" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition">
+                    Tushunarli
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. OYNING ENG FAOL O'QUVCHISI BATAFSIL MODAL -->
+    <div id="activeStudentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
+        <div class="relative w-full max-w-lg rounded-3xl bg-[#0e1628] border-2 border-amber-500/40 p-6 sm:p-8 text-white shadow-2xl">
+            <button onclick="closeActiveStudentModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-xl bg-white/5">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold uppercase mb-2">
+                    <i class="fa-solid fa-crown text-amber-400"></i> Maxsus Nizom
+                </span>
+                <h3 class="text-2xl font-black text-white">Oyning Eng Faol O'quvchisi & 20% Chegirma</h3>
+                <p class="text-xs text-slate-300 mt-1">META IT School talabalarini rag'batlantirish dasturi</p>
+            </div>
+
+            <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                    <h4 class="font-bold text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-award"></i> Qanday qilib 20% chegirmaga ega bo'lish mumkin?
+                    </h4>
+                    <ul class="list-disc list-inside space-y-1.5 text-slate-400 text-xs">
+                        <li><b>100% Davomat:</b> Oy davomida bitta ham sababsiz dars qoldirmaslik.</li>
+                        <li><b>Uyga vazifalar:</b> Barcha topshiriqlarni belgilangan muddatda 'A' (90+) bahoga topshirish.</li>
+                        <li><b>Weekly Hackathon:</b> Haftalik mini musobaqalarda kod yozish va jamoaga yordam berish.</li>
+                        <li><b>LMS Ballari:</b> Oylik yakuniy reyting jadvalida eng ko'p ball to'plab 1-o'rinni egallash.</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300">
+                    <div class="font-bold text-sm text-white mb-1">🎁 Mukofot:</div>
+                    G'olib deb topilgan o'quvchiga keyingi oy uchun <b>20% chegirma vaucheri</b> va "Oy O'quvchisi" maxsus rasmiy sertifikati hamda sovg'a to'plami beriladi!
+                </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-between pt-4 border-t border-white/10">
+                <button onclick="fillPromoCode('META20ACTIVE'); closeActiveStudentModal();" class="text-xs text-indigo-400 font-bold hover:underline">
+                    Promo-kodni nusxalash: META20ACTIVE
+                </button>
+                <button onclick="closeActiveStudentModal()" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition">
+                    Yopish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT -->
+    <script src="script.js"></script>
+</body>
+</html>
